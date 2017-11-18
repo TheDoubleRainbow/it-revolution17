@@ -1,6 +1,6 @@
 require("./eventsList.vue")
 require("./sidebar.vue")
-mainblock = Vue.component('mainblock', {
+Mainblock = Vue.component('mainblock', {
 	template: 
 		`
 			<div class="columns is-centered">
