@@ -3,7 +3,7 @@ eventsList = Vue.component('eventslist', {
 		`<div class="column is-8">
 			<div v-for="game in list">
 				<div class="eventslist-gamename">{{game.game}}</div>
-				<div class="eventlist-event" v-for="event in game.events">
+				<div @click="openEvent(event)" class="eventlist-event" v-for="event in game.events">
 					<div class="columns is-centered">
 					  	<div class="eventlist-img column is-1">
 					  		<img src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
@@ -43,6 +43,11 @@ eventsList = Vue.component('eventslist', {
 
 			]}
 			]
+		}
+	},
+	methods: {
+		openEvent: function(event){
+			this.$router.push(`/event/${event.id}`)
 		}
 	}
 
