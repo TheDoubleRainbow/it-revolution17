@@ -15,10 +15,18 @@ var eventSchema = mongoose.Schema({
   game: String,
   city: String,
   date: String,
-  rating: Number
+  rating: Number,
+  peacture: String
 });
 
 var Event = mongoose.model('Event', eventSchema);
+
+var commentSchema = mongoose.Schema({
+	user: String,
+	event_id: String,
+	body: String
+});
+var Comment = mongoose.model('Cooment', commentSchema);
 
 /*var petro = new Student({
   firstName: 'Петро',
@@ -53,8 +61,9 @@ router.get('/api/events', function(req, res, next){
 		//console.log(findObj);
 		Event.find(query)
 	  	.then(function(events) {
+	  		//console.log("GetEvents");
 	  		console.log(events);
-	    	req.send(events)
+	    	res.send(events)
 		}).catch(function(e) {
 	  		res.send(e);
 		});
@@ -69,7 +78,7 @@ router.get('/api/topevents', function(req, res, next){
 		Event.find().sort({rating: -1}).limit(req.query.count ? req.query.count : 10)
 	  	.then(function(events) {
 	  		console.log(events);
-	    	res.send("OK")
+	    	res.send(events)
 		}).catch(function(e) {
 			console.log("error");
 			console.log(e);
@@ -77,14 +86,15 @@ router.get('/api/topevents', function(req, res, next){
 		});
 
   	})
-router.post('/api/events', function(req, res, next){
-	  	var event = new Event({
+router.post('api/events', function(req, res, next){
+		var event = new Event({
 			  name: req.body.name,
 			  description: req.body.description,
 			  game: req.body.game,
 			  city: req.body.city,
 			  date: req.body.date,
-			  rating: 0
+			  rating: 0,
+			  peacture: req.body.peacture
 		});
 
 			event
@@ -95,7 +105,36 @@ router.post('/api/events', function(req, res, next){
 			}).catch(function(e) {
 				res.send(e);
 		});
+});
+
+router.post('/api/events/:event_id/comments', function(req, res, next){
+	  	var comment = new Comment({
+			user: req.body.user,
+			event_id: req.params.event_id,
+			body: req.body.body
+		});
+
+			comment
+			  .save()
+			  .then(function() {
+			  	res.send("OK");
+			}).catch(function(e) {
+				res.send(e);
+		});
 	});
+router.get('/api/events/:event_id/comments', function(req, res, next){
+		Comment.find({event_id: req.params.event_id})
+	  	.then(function(comments) {
+	  		console.log(comments);
+	    	res.send(comments);
+		}).catch(function(e) {
+			console.log("error");
+			console.log(e);
+	  		res.send(e);
+		});
+
+  	})
+
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express' });
 });
