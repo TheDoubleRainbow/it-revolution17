@@ -13,6 +13,9 @@ Eventpage = Vue.component('eventpage', {
 									<div class="eventbodygame">
 										Game: {{eventData.game}}
 									</div>
+									<div class="eventbodydate">
+										Date: {{eventData.date}}
+									</div>
 									<div class="eventbodylocation">
 										Location: {{eventData.city}}
 									</div>
@@ -20,6 +23,7 @@ Eventpage = Vue.component('eventpage', {
 										Link: <a href="#">Page of event</a>
 									</div>
 									<div class="eventbodyrating">
+										Rating: {{eventData.likes}} <span class="addrating">+</span>
 									</div>
 								</div>
 								<div class="column is-6 hide-tablet">
