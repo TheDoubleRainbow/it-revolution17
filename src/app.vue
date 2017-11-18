@@ -9,7 +9,11 @@ require("./eventpage.vue")
 Vue.use(Router)
 const router = new Router({
 	routes: [
-		{ path: '/', component: Mainblock}
+		{ path: '/', component: Mainblock},
+		{ path: '/event/:id', component: Eventpage,
+			children: [
+	      ]
+      }
 	]
 })
 
