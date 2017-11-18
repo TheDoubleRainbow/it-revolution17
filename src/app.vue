@@ -3,7 +3,8 @@
 require("./lib/vuetify.js")
 require("./vheader.vue")
 require("./mainblock.vue")
-require("./store.js");
+//require("./store.js");
+require("./eventpage.vue")
 
 Vue.use(Router)
 const router = new Router({
@@ -15,7 +16,7 @@ const router = new Router({
 app = new Vue({
 	el: "#app",
 	router: router,
-	store: store,
+	//store: store,
 	data: 
 		{
 		},
