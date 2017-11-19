@@ -5,15 +5,13 @@ require("./vheader.vue")
 require("./mainblock.vue")
 //require("./store.js");
 require("./eventpage.vue")
-
+require("./addevent.vue")
 Vue.use(Router)
 const router = new Router({
 	routes: [
 		{ path: '/', component: Mainblock},
-		{ path: '/event/:id', component: Eventpage,
-			children: [
-	      ]
-      }
+		{ path: '/event/:id', component: Eventpage},
+		{ path: '/addevent', component: addevent}
 	]
 })
 
