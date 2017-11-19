@@ -6149,7 +6149,8 @@ a {
   border-radius: 5px;
   box-shadow: 0px 0px 1px grey;
   margin-top: 10px;
-  transition-duration: 0.3s; }
+  transition-duration: 0.3s;
+  cursor: pointer; }
 
 .eventlist-img img {
   height: 40px;
@@ -6202,7 +6203,8 @@ a {
 #apptitle {
   font-size: 20px;
   padding-top: 15px;
-  color: #4F545C; }
+  color: #4F545C;
+  cursor: pointer; }
 
 .sidebar {
   border-radius: 5px;
@@ -6219,7 +6221,8 @@ a {
   padding-top: 40px; }
 
 .topeventslist div {
-  display: inline-block; }
+  display: inline-block;
+  cursor: pointer; }
 
 .topeventlist-rating {
   font-size: 8px;
@@ -6314,5 +6317,23 @@ a {
   color: #737477;
   margin-top: 20px;
   margin-bottom: 15px; }
+
+.addeventblock {
+  padding: 15px 5px 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1px grey;
+  margin-top: 40px;
+  padding-bottom: 20px;
+  transition-duration: 0.3s;
+  margin-bottom: 50px; }
+
+.addeventheader {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 18px; }
+
+.label {
+  font-weight: normal;
+  font-size: 14px; }
 
 /*# sourceMappingURL=style.css.map */
