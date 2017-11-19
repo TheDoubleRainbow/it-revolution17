@@ -28374,10 +28374,10 @@ Eventpage = Vue.component('eventpage', {
 										<img class="eventbodyimg" src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
 									</div>
 									<div class="fbbox">
-										<iframe class="fbbutton" src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitrev17.herokuapp.com%2F%23%2F&layout=button&size=small&mobile_iframe=true&width=95&height=20&appId" width="95" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 										 <meta property="og:title"        :content="eventData.name" />
 										 <meta property="og:description"  :content="eventData.description" />
 										 <meta property="og:image"        :content="eventData.imglink" />
+										<iframe class="fbbutton" src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitrev17.herokuapp.com%2F%23%2F&layout=button&size=small&mobile_iframe=true&width=95&height=20&appId" width="95" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 									</div>
 								</div>
 							</div>
