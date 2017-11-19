@@ -9,7 +9,7 @@ Eventpage = Vue.component('eventpage', {
 					<div class="eventbody">
 						<div class="shortbody">
 							<div class=" columns is-centered">
-								<div class="eventbodyleft column is-6">
+								<div class="eventbodyleft column is-6 is-12-touch">
 									<div class="eventbodygame">
 										Game: {{eventData.game}}
 									</div>
@@ -26,8 +26,16 @@ Eventpage = Vue.component('eventpage', {
 										Rating: {{eventData.likes}} <span class="addrating">+</span>
 									</div>
 								</div>
-								<div class="column is-6 hide-tablet">
-									<img class="eventbodyimg" src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
+								<div class="column is-6 is-hidden-touch">
+									<div class="eventimgbox">
+										<img class="eventbodyimg" src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
+									</div>
+									<div class="fbbox">
+										<iframe class="fbbutton" src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitrev17.herokuapp.com%2F%23%2F&layout=button&size=small&mobile_iframe=true&width=95&height=20&appId" width="95" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+										 <meta property="og:title"        :content="eventData.name" />
+										 <meta property="og:description"  :content="eventData.description" />
+										 <meta property="og:image"        :content="eventData.imglink" />
+									</div>
 								</div>
 							</div>
 							<div class="columns is-centered">
@@ -43,6 +51,7 @@ Eventpage = Vue.component('eventpage', {
 						Comments:
 					</div>
 					<div class="commentslist">
+						<div class="nocomments" v-show="comments.length < 1">There are no comments yet...</div>
 						<div class="comment" v-for="comment in comments">
 							<span class="commentuser">{{comment.user}}: </span><span class="commenttext">{{comment.body}}</span>
 						</div>
@@ -61,9 +70,7 @@ Eventpage = Vue.component('eventpage', {
 	data: function(){
 		return {
 			eventData: {id: 0, game: "Overwatch", name: "Overwatch world cup", city: "London", likes: 322, date: "01.25.2018"},
-			comments: [{user: "Anon", text: "Vecher v hatu pochany mne 20 i ya borodat..."}, 
-			{user: "Anon", body: "Hello world"},
-			{user: "Roma", body: "Hullo i'm gay"}],
+			comments: [],
 			name: "",
 			text: ""
 		}
@@ -80,6 +87,7 @@ Eventpage = Vue.component('eventpage', {
                       	console.log(response);
                       	that.eventData = {game: response.data.event.game, description: response.data.event.description, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
                       	that.comments = response.data.comments;
+                      	console.log(that.comments)
                       })
                       .catch(function (error) {
                         //that.list = [];
