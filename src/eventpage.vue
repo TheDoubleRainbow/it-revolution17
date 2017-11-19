@@ -27,16 +27,26 @@ Eventpage = Vue.component('eventpage', {
 									</div>
 								</div>
 								<div class="column is-6 hide-tablet">
+									<div class="eventimgbox">
 									<img class="eventbodyimg" :src="eventData.peacture" />
+									</div>		
+ 									<div class="fbbox">		
+ 										 <meta property="og:title"        :content="eventData.name" />		
+ 										 <meta property="og:description"  :content="eventData.description" />		
+ 										 <meta property="og:image"        :content="eventData.imglink" />		
+ 								<iframe class="fbbutton" src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fitrev17.herokuapp.com%2F%23%2F&layout=button&size=small&mobile_iframe=true&width=95&height=20&appId" width="95" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
 								</div>
+							</div>
 							</div>
 							<div class="columns is-centered">
 								<div class="eventbodydescription column is-12">
 									{{eventData.description}}
+
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 				</div>
 				<div class="comments column is-offset-2 is-8">
 					<div class="commentsheader">
@@ -78,7 +88,7 @@ Eventpage = Vue.component('eventpage', {
                       .then(function (response){
                       	//console.log("response");
                       	console.log(response);
-                      	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date, peacture: response.data.event.peacture, link: response.data.event.link}
+                      	that.eventData = {game: response.data.event.game, description: response.data.event.description, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date, peacture: response.data.event.peacture, link: response.data.event.link}
                       	that.comments = response.data.comments;
                       })
                       .catch(function (error) {
