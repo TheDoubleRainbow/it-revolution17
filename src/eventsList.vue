@@ -1,12 +1,13 @@
 eventsList = Vue.component('eventslist', {
 	template: 
-		`<div class="column is-8">
+		`<div class="column is-8-widescreen is-10-tablet">
+			<div class="noitems" v-if="list.length == 0">Sorry, but there are no items to show.</div>
 			<div v-for="game in list">
 				<div class="eventslist-gamename">{{game.game}}</div>
 				<div @click="openEvent(event)" class="eventlist-event" v-for="event in game.events">
 					<div class="columns is-centered">
 					  	<div class="eventlist-img column is-1">
-					  		<img src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
+					  		<img class="eventslist-img-tag" src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
 					  	</div>
 					  	<div class="eventlist-name column is-2">
 					  		{{event.city}}
