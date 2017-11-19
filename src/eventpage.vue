@@ -32,7 +32,7 @@ Eventpage = Vue.component('eventpage', {
 							</div>
 							<div class="columns is-centered">
 								<div class="eventbodydescription column is-12">
-									Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dui purus, mollis vitae neque in, scelerisque fermentum tortor. Nulla in ex sed felis luctus tempor. Curabitur feugiat molestie cursus. Vestibulum pretium dignissim dignissim. Morbi nec tempor magna. Aliquam aliquet massa quis odio ullamcorper ornare. Aenean ultrices arcu et condimentum rhoncus. Mauris leo urna, auctor et facilisis sed, interdum et lectus. Pellentesque auctor velit at ex viverra, pharetra faucibus purus molestie.
+									{{eventData.description}}
 								</div>
 							</div>
 						</div>
@@ -44,15 +44,15 @@ Eventpage = Vue.component('eventpage', {
 					</div>
 					<div class="commentslist">
 						<div class="comment" v-for="comment in comments">
-							<span class="commentuser">{{comment.user}}: </span><span class="commenttext">{{comment.text}}</span>
+							<span class="commentuser">{{comment.user}}: </span><span class="commenttext">{{comment.body}}</span>
 						</div>
 					</div>
 					<div class="addnewcomment">You can add new comment:</div>
 					<div class="commentinput">
 						<div class="columns">
-					 	<input class="input column is-2" type="text" placeholder="Name">
-					 	<input class="input column is-8" type="text" placeholder="Text">
-					 	<button class="button is-primary">Send comment</button>
+					 	<input v-model="name" class="input column is-2" type="text" placeholder="Name">
+					 	<input v-model="text" class="input column is-8" type="text" placeholder="Text">
+					 	<button @click="sendComment"class="button is-primary">Send comment</button>
 					 	</div>
 					</div>
 				</div>
@@ -62,8 +62,43 @@ Eventpage = Vue.component('eventpage', {
 		return {
 			eventData: {id: 0, game: "Overwatch", name: "Overwatch world cup", city: "London", likes: 322, date: "01.25.2018"},
 			comments: [{user: "Anon", text: "Vecher v hatu pochany mne 20 i ya borodat..."}, 
-			{user: "Anon", text: "Hello world"},
-			{user: "Roma", text: "Hullo i'm gay"}]
+			{user: "Anon", body: "Hello world"},
+			{user: "Roma", body: "Hullo i'm gay"}],
+			name: "",
+			text: ""
 		}
-	}
+	},
+	created: function(){
+		this.getEventData();
+	},
+	methods: {
+		getEventData: function(){
+			var that = this;
+			axios.get(`/api/events/${this.$route.params.id}`)
+                      .then(function (response){
+                      	//console.log("response");
+                      	console.log(response);
+                      	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	that.comments = response.data.comments;
+                      })
+                      .catch(function (error) {
+                        //that.list = [];
+                        console.log(error);
+                     });
+		},
+		sendComment: function(){
+			var that = this;
+			axios.post(`/api/events/${this.$route.params.id}/comments`, {user: that.name, body: that.text})
+                      .then(function (response){
+                      	//console.log("response");
+                      	//console.log(response);
+                      	//that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	//that.comments = response.data.comments;
+                      })
+                      .catch(function (error) {
+                        //that.list = [];
+                        console.log(error);
+                     });
+		}
+}
 });

@@ -106,8 +106,45 @@ router.post('api/events', function(req, res, next){
 				res.send(e);
 		});
 });
+router.put('api/events', function(req, res, next){
 
+			Event.findById(req.params.bear_id)
+			.then(function(event) {
+	  			event.rating
+
+	  			event
+			  .save()
+			  .then(function() {
+			  	res.send("OK");
+			    //console.log('Event added');
+				}).catch(function(e) {
+					res.send(e);
+			  	}
+			}).catch(function(e) {
+	  		res.send(e);
+			});
+});
+router.get('/api/events/:event_id', function(req, res, next){
+		console.log("Get comments " + req.params.event_id);
+	  	Event.findOne({_id: req.params.event_id})
+	  	.then(function(event) {
+	  		Comment.find({event_id: req.params.event_id})
+	  		.then(function(comments) {
+	  			console.log({event: event, comments: comments});
+	  			res.send({event: event, comments: comments});
+	  		}).catch(function(e) {
+	  			console.log(e);
+	  			res.send(e);
+		});
+		}).catch(function(e) {
+			console.log("error");
+			console.log(e);
+	  		res.send(e);
+		});
+	});
 router.post('/api/events/:event_id/comments', function(req, res, next){
+		console.log("comment add");
+		console.log(req.body);
 	  	var comment = new Comment({
 			user: req.body.user,
 			event_id: req.params.event_id,
