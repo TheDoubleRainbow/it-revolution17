@@ -76,6 +76,8 @@ Eventpage = Vue.component('eventpage', {
 			var that = this;
 			axios.get(`/api/events/${this.$route.params.id}`)
                       .then(function (response){
+                      	//console.log("response");
+                      	console.log(response);
                       	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
                       	that.comments = response.data.comments;
                       })
