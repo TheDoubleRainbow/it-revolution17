@@ -60,7 +60,7 @@ router.get('/api/events', function(req, res, next){
 			query["city"] = req.query.city;
 		}
 		//console.log(findObj);
-		Event.find(query)
+		Event.find(query).sort({rating: -1})
 	  	.then(function(events) {
 	  		//console.log("GetEvents");
 	  		console.log(events);

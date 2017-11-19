@@ -40,7 +40,7 @@ topevents = Vue.component('topevents', {
                       .then(function (response){
                       	console.log(response);
                         response.data.forEach(function(item, i, arr) {
-  							that.list.push({game: item.game, id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date})
+  							that.list.push({game: item.game, id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, peacture: item.peacture, link: item.link})
                         });
                       })
                       .catch(function (error) {

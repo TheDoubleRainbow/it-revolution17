@@ -28186,7 +28186,7 @@ eventsList = Vue.component('eventslist', {
 				<div @click="openEvent(event)" class="eventlist-event" v-for="event in game.events">
 					<div class="columns is-centered">
 					  	<div class="eventlist-img column is-1">
-					  		<img src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
+					  		<img :src="event.peacture" />
 					  	</div>
 					  	<div class="eventlist-name column is-2">
 					  		{{event.city}}
@@ -28326,7 +28326,7 @@ topevents = Vue.component('topevents', {
                       .then(function (response){
                       	console.log(response);
                         response.data.forEach(function(item, i, arr) {
-  							that.list.push({game: item.game, id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date})
+  							that.list.push({game: item.game, id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, peacture: item.peacture, link: item.link})
                         });
                       })
                       .catch(function (error) {
