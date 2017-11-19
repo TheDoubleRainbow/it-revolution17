@@ -188,7 +188,7 @@ router.get('/api/events/:event_id/comments', function(req, res, next){
   	})
 
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' });
+	res.render('index', { title: 'CyberSport Eye' });
 });
 router.get('/api/countries', function(req, res, next){
 	Event.find().distinct('city')
@@ -202,7 +202,7 @@ router.get('/api/countries', function(req, res, next){
 		});
 });
 router.get('/api/lastcomments', function(req, res, next){
-	Comment.find().limit(req.query.count ? req.query.count : 10).populate('event_id')
+	Comment.find().sort({ 'created_at' : -1 }).limit(req.query.count ? req.query.count : 10).populate('event_id')
 	  	.then(function(comments) {
 	  		console.log(comments);
 	    	res.send(comments);
