@@ -6369,4 +6369,14 @@ a {
   text-align: center;
   margin: 10px; }
 
+.addrating {
+  background: #EF4514;
+  border-radius: 100%;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+  padding-bottom: 2px; }
+
 /*# sourceMappingURL=style.css.map */
