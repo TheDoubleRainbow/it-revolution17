@@ -28511,7 +28511,8 @@ Eventpage = Vue.component('eventpage', {
 			{user: "Anon", body: "Hello world"},
 			{user: "Roma", body: "Hullo i'm gay"}],
 			name: "",
-			text: ""
+			text: "",
+			voted: false
 		}
 	},
 	created: function(){
@@ -28548,7 +28549,9 @@ Eventpage = Vue.component('eventpage', {
                      });
 		},
 		vote: function(){
-			axios.put(`/api/events/${this.$route.params.id}`, {vote: '+'}).then(function (response){
+			if(!this.voted){
+				this.voted = true
+				axios.put(`/api/events/${this.$route.params.id}`, {vote: '+'}).then(function (response){
 
                       	//console.log("response");
                       	//console.log(response);
@@ -28557,6 +28560,10 @@ Eventpage = Vue.component('eventpage', {
                       })
                       .catch(function (error) {console.log(error)});
                       this.getEventData();
+			}
+			else{
+				alert("You've already voted")
+			}
 		}
 }
 });
