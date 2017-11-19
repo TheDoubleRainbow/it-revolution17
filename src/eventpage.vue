@@ -23,7 +23,7 @@ Eventpage = Vue.component('eventpage', {
 										Link: <a href="#">Page of event</a>
 									</div>
 									<div class="eventbodyrating">
-										Rating: {{eventData.likes}} <span class="addrating">+</span>
+										Rating: {{eventData.likes}} <span @click="vote" class="addrating">+</span>
 									</div>
 								</div>
 								<div class="column is-6 hide-tablet">
@@ -76,8 +76,6 @@ Eventpage = Vue.component('eventpage', {
 			var that = this;
 			axios.get(`/api/events/${this.$route.params.id}`)
                       .then(function (response){
-                      	//console.log("response");
-                      	console.log(response);
                       	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
                       	that.comments = response.data.comments;
                       })
@@ -99,6 +97,17 @@ Eventpage = Vue.component('eventpage', {
                         //that.list = [];
                         console.log(error);
                      });
+		},
+		vote: function(){
+			axios.put(`/api/events/${this.$route.params.id}`, {vote: '+'}).then(function (response){
+
+                      	//console.log("response");
+                      	//console.log(response);
+                      	//that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	//that.comments = response.data.comments;
+                      })
+                      .catch(function (error) {console.log(error)});
+                      this.getEventData();
 		}
 }
 });

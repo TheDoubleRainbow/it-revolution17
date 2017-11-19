@@ -85,8 +85,8 @@ router.get('/api/topevents', function(req, res, next){
 	  		res.send(e);
 		});
 
-  	})
-router.post('api/events', function(req, res, next){
+  	});
+router.post('/api/events', function(req, res, next){
 		var event = new Event({
 			  name: req.body.name,
 			  description: req.body.description,
@@ -106,23 +106,32 @@ router.post('api/events', function(req, res, next){
 				res.send(e);
 		});
 });
-router.put('api/events', function(req, res, next){
-
-			Event.findById(req.params.bear_id)
+router.put('/api/events/:id', function(req, res){
+			console.log(req.body);
+			Event.findById(req.params.id)
 			.then(function(event) {
-	  			event.rating
+				if(req.body.vote){
+					if(req.body.vote == "+"){
+	  					event.rating += 1;
+					}
+	  				if(req.body.vote == "-"){
+	  					event.rating -= 1;
+	  				}
 
-	  			event
-			  .save()
-			  .then(function() {
-			  	res.send("OK");
-			    //console.log('Event added');
-				}).catch(function(e) {
-					res.send(e);
-			  	}
+			  		event
+					  .save()
+					  .then(function() {
+					  	res.send("OK");
+					}).catch(function(e) {
+						res.send(e);
+					});
+					
+				}
 			}).catch(function(e) {
-	  		res.send(e);
+	  			res.send(e);
 			});
+			
+			//res.send("OK");
 });
 router.get('/api/events/:event_id', function(req, res, next){
 		console.log("Get comments " + req.params.event_id);
