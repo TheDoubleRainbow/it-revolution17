@@ -106,7 +106,7 @@ router.post('api/events', function(req, res, next){
 				res.send(e);
 		});
 });
-router.put('api/events', function(req, res, next){
+/*router.put('api/events', function(req, res, next){
 
 			Event.findById(req.params.bear_id)
 			.then(function(event) {
@@ -123,7 +123,7 @@ router.put('api/events', function(req, res, next){
 			}).catch(function(e) {
 	  		res.send(e);
 			});
-});
+});*/
 router.get('/api/events/:event_id', function(req, res, next){
 		console.log("Get comments " + req.params.event_id);
 	  	Event.findOne({_id: req.params.event_id})
