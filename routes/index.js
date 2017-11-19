@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var mongoUrl = 'mongodb://gib:qwerty@ds245805.mlab.com:45805/heroku_dt4zfk5h';
 
 mongoose.Promise = global.Promise
+mongoose.set('debug', true);
 mongoose.connect(mongoUrl, { useMongoClient: true });
 //var db = mongoose.connection;
 
@@ -24,7 +25,10 @@ var Event = mongoose.model('Event', eventSchema);
 
 var commentSchema = mongoose.Schema({
 	user: String,
-	event_id: String,
+	event_id: {
+		type: mongoose.Schema.ObjectId,
+		ref: 'Event'
+	},
 	body: String
 });
 var Comment = mongoose.model('Cooment', commentSchema);
@@ -191,6 +195,17 @@ router.get('/api/countries', function(req, res, next){
 	  	.then(function(events) {
 	  		console.log(events);
 	    	res.send(events.sort())
+		}).catch(function(e) {
+			console.log("error");
+			console.log(e);
+	  		res.send(e);
+		});
+});
+router.get('/api/lastcomments', function(req, res, next){
+	Comment.find().limit(req.query.count ? req.query.count : 10).populate('event_id')
+	  	.then(function(comments) {
+	  		console.log(comments);
+	    	res.send(comments);
 		}).catch(function(e) {
 			console.log("error");
 			console.log(e);
