@@ -6203,7 +6203,8 @@ a {
 #apptitle {
   font-size: 20px;
   padding-top: 15px;
-  color: #4F545C; }
+  color: #4F545C;
+  cursor: pointer; }
 
 .sidebar {
   border-radius: 5px;
