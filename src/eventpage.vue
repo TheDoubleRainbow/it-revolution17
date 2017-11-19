@@ -27,7 +27,7 @@ Eventpage = Vue.component('eventpage', {
 									</div>
 								</div>
 								<div class="column is-6 hide-tablet">
-									<img class="eventbodyimg" src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
+									<img class="eventbodyimg" :src="eventData.peacture" />
 								</div>
 							</div>
 							<div class="columns is-centered">
@@ -78,7 +78,7 @@ Eventpage = Vue.component('eventpage', {
                       .then(function (response){
                       	//console.log("response");
                       	console.log(response);
-                      	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date, peacture: response.data.event.peacture, link: response.data.event.link}
                       	that.comments = response.data.comments;
                       })
                       .catch(function (error) {

@@ -63,13 +63,13 @@ eventsList = Vue.component('eventslist', {
                             var found = false;
                             that.list.forEach(function(item1, i1, arr1){
                                 if(item1.game == item.game){
-                                    that.list.events.push({id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description });
+                                    that.list[i1].events.push({id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description, peacture: item.peacture, link: item.link});
                                     found = true;
                                 }
                             })
                             if(found == false){
                                 //var subtype = typeArray[1];// ? typeArray[1];
-                                that.list.push({game: item.game, events: [{id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description }]});
+                                that.list.push({game: item.game, events: [{id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description, peacture: item.peacture, link: item.link }]});
                             }
                         });
                       })

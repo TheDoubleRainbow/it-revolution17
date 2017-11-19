@@ -28243,13 +28243,13 @@ eventsList = Vue.component('eventslist', {
                             var found = false;
                             that.list.forEach(function(item1, i1, arr1){
                                 if(item1.game == item.game){
-                                    that.list.events.push({id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description });
+                                    that.list[i1].events.push({id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description, peacture: item.peacture, link: item.link});
                                     found = true;
                                 }
                             })
                             if(found == false){
                                 //var subtype = typeArray[1];// ? typeArray[1];
-                                that.list.push({game: item.game, events: [{id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description }]});
+                                that.list.push({game: item.game, events: [{id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, description: item.description, peacture: item.peacture, link: item.link }]});
                             }
                         });
                       })
@@ -28370,7 +28370,7 @@ Eventpage = Vue.component('eventpage', {
 									</div>
 								</div>
 								<div class="column is-6 hide-tablet">
-									<img class="eventbodyimg" src="https://avatars0.githubusercontent.com/u/15015118?s=460&v=4" />
+									<img class="eventbodyimg" :src="eventData.peacture" />
 								</div>
 							</div>
 							<div class="columns is-centered">
@@ -28421,7 +28421,7 @@ Eventpage = Vue.component('eventpage', {
                       .then(function (response){
                       	//console.log("response");
                       	console.log(response);
-                      	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date, peacture: response.data.event.peacture, link: response.data.event.link}
                       	that.comments = response.data.comments;
                       })
                       .catch(function (error) {
@@ -28495,6 +28495,12 @@ addevent = Vue.component('addevent', {
 						  </div>
 						</div>
 						<div class="field">
+						  <label class="label">Date</label>
+						  <div class="control">
+						    <input v-model="form.date" class="input" type="text" placeholder="Date">
+						  </div>
+						</div>
+						<div class="field">
 						  <label class="label">Image</label>
 						  <div class="control">
 						    <input v-model="form.imglink" class="input" type="text" placeholder="Image\`s link">
@@ -28515,7 +28521,7 @@ addevent = Vue.component('addevent', {
 
 						<div class="field is-grouped">
 						  <div class="control">
-						    <button class="button is-link">Submit</button>
+						    <button @click="addEvent" class="button is-link">Submit</button>
 						  </div>
 						</div>
 					</div>
@@ -28529,6 +28535,7 @@ addevent = Vue.component('addevent', {
 				game: '',
 				title: '',
 				city: '',
+				date: '',
 				imglink: '',
 				link: '',
 				desc: ``,
@@ -28536,7 +28543,7 @@ addevent = Vue.component('addevent', {
 		}
 	},
 	methods: {
-		addevent: function(){
+		addEvent: function(){
 			if(this.form.game != '' && this.form.title != '' && this.form.city != ''){
 				if(this.form.imglink == ''){
 					switch(this.form.game){
@@ -28555,8 +28562,27 @@ addevent = Vue.component('addevent', {
 						case "PUBG":
 							this.form.imglink = "https://gameflip.com/img/app/digital_platform_pubg.png"
 							break;
+							/*name: req.body.name,
+			  description: req.body.description,
+			  game: req.body.game,
+			  city: req.body.city,
+			  date: req.body.date,
+			  rating: 0,
+			  peacture: req.body.peacture*/
 					}
 				}
+
+				axios.post(`/api/events`, {name: this.form.title, description: this.form.desc, game: this.form.game, city: this.form.city, date: this.form.date, peacture: this.form.imglink, link: this.form.link})
+                      .then(function (response){
+                      	//console.log("response");
+                      	//console.log(response);
+                      	//that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	//that.comments = response.data.comments;
+                      })
+                      .catch(function (error) {
+                        //that.list = [];
+                        console.log(error);
+                     });
 
 			}
 			else{

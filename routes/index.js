@@ -16,7 +16,8 @@ var eventSchema = mongoose.Schema({
   city: String,
   date: String,
   rating: Number,
-  peacture: String
+  peacture: String,
+  link: String
 });
 
 var Event = mongoose.model('Event', eventSchema);
@@ -94,7 +95,8 @@ router.post('/api/events', function(req, res, next){
 			  city: req.body.city,
 			  date: req.body.date,
 			  rating: 0,
-			  peacture: req.body.peacture
+			  peacture: req.body.peacture,
+			  link: req.body.link
 		});
 
 			event
