@@ -11129,8 +11129,8 @@ __webpack_require__(8)
 __webpack_require__(9)
 __webpack_require__(10)
 //require("./store.js");
-__webpack_require__(14)
 __webpack_require__(15)
+__webpack_require__(16)
 Vue.use(Router)
 const router = new Router({
 	routes: [
@@ -28306,11 +28306,13 @@ eventsList = Vue.component('eventslist', {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
+__webpack_require__(14);
 sidebar = Vue.component('sidebar', {
 	template: 
 		`
 			<div id="sidebarsblock" class="column is-3 tablet-is-12 desktop-is-12">
 				<topevents></topevents>
+				<lastcomments></lastcomments>
 			</div>
 		`,
 	data: function(){
@@ -28379,6 +28381,54 @@ topevents = Vue.component('topevents', {
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports) {
+
+lastcomments = Vue.component('lastcomments', {
+	template: 
+		`
+			<div>
+				<div class="sidebar">
+					<div class="sidebartitle">Last Comments</div>
+					<div class="topeventslist">
+						<div @click="openEvent(event)" class="topevent column is-12" v-for="event in list">
+							<div class="topeventname"><img class="lastcommentsimg" src="https://res.cloudinary.com/teepublic/image/private/s--dzAEC90f--/t_Preview/b_rgb:484849,c_limit,f_jpg,h_630,q_90,w_630/v1488911584/production/designs/1298385_1.jpg" />{{event.name}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		`,
+	data: function(){
+		return {
+			list: []
+		}
+	},
+	created: function(){
+		this.getTopEvents();
+	},
+	methods: {
+		openEvent: function(event){
+			this.$router.push(`/event/${event.id}`)
+		},
+		getTopEvents: function(){
+			var that = this;
+			that.list = [];
+			axios.get(`/api/topevents`)
+                      .then(function (response){
+                      	console.log(response);
+                        response.data.forEach(function(item, i, arr) {
+  							that.list.push({game: item.game, id: item._id, game: item.game, name: item.name, city: item.city, likes: item.rating, date: item.date, peacture: item.peacture, link: item.link})
+                        });
+                      })
+                      .catch(function (error) {
+                        that.list = [];
+                        console.log(error);
+                     });
+		}
+	}
+});
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 Eventpage = Vue.component('eventpage', {
@@ -28510,7 +28560,7 @@ Eventpage = Vue.component('eventpage', {
 });
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 addevent = Vue.component('addevent', {
