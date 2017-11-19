@@ -32,6 +32,12 @@ addevent = Vue.component('addevent', {
 						  </div>
 						</div>
 						<div class="field">
+						  <label class="label">Date</label>
+						  <div class="control">
+						    <input v-model="form.date" class="input" type="text" placeholder="Date">
+						  </div>
+						</div>
+						<div class="field">
 						  <label class="label">Image</label>
 						  <div class="control">
 						    <input v-model="form.imglink" class="input" type="text" placeholder="Image\`s link">
@@ -52,7 +58,7 @@ addevent = Vue.component('addevent', {
 
 						<div class="field is-grouped">
 						  <div class="control">
-						    <button class="button is-link">Submit</button>
+						    <button @click="addEvent" class="button is-link">Submit</button>
 						  </div>
 						</div>
 					</div>
@@ -66,6 +72,7 @@ addevent = Vue.component('addevent', {
 				game: '',
 				title: '',
 				city: '',
+				date: '',
 				imglink: '',
 				link: '',
 				desc: ``,
@@ -73,7 +80,7 @@ addevent = Vue.component('addevent', {
 		}
 	},
 	methods: {
-		addevent: function(){
+		addEvent: function(){
 			if(this.form.game != '' && this.form.title != '' && this.form.city != ''){
 				if(this.form.imglink == ''){
 					switch(this.form.game){
@@ -92,8 +99,27 @@ addevent = Vue.component('addevent', {
 						case "PUBG":
 							this.form.imglink = "https://gameflip.com/img/app/digital_platform_pubg.png"
 							break;
+							/*name: req.body.name,
+			  description: req.body.description,
+			  game: req.body.game,
+			  city: req.body.city,
+			  date: req.body.date,
+			  rating: 0,
+			  peacture: req.body.peacture*/
 					}
 				}
+
+				axios.post(`/api/events`, {name: this.form.title, description: this.form.desc, game: this.form.game, city: this.form.city, date: this.form.date, peacture: this.form.imglink, link: this.form.link})
+                      .then(function (response){
+                      	//console.log("response");
+                      	//console.log(response);
+                      	//that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
+                      	//that.comments = response.data.comments;
+                      })
+                      .catch(function (error) {
+                        //that.list = [];
+                        console.log(error);
+                     });
 
 			}
 			else{
