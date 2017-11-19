@@ -1,10 +1,10 @@
 Eventpage = Vue.component('eventpage', {
 	template: 
-		`
+		`<div>
 			<div>
 				<div class="event column is-offset-2 is-8">
 					<div class="eventheader">
-						Event\`s name
+						{{eventData.name}}
 					</div>
 					<div class="eventbody">
 						<div class="shortbody">
@@ -67,6 +67,7 @@ Eventpage = Vue.component('eventpage', {
 					</div>
 				</div>
 			</div>
+
 		`,
 	data: function(){
 		return {
@@ -100,6 +101,7 @@ Eventpage = Vue.component('eventpage', {
 			var that = this;
 			axios.post(`/api/events/${this.$route.params.id}/comments`, {user: that.name, body: that.text})
                       .then(function (response){
+                      	that.getEventData()
                       	//console.log("response");
                       	//console.log(response);
                       	//that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}

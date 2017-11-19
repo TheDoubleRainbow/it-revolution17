@@ -1,6 +1,26 @@
 eventsList = Vue.component('eventslist', {
 	template: 
 		`<div class="column is-8-widescreen is-10-tablet">
+			<div  class="eventfilter" v-if="list.length != 0">
+				<div class="select">
+				  <select v-model="sortby">
+				    <option>Sort by games</option>
+				    <option>Sort by cities</option>
+				  </select>
+				</div>
+				<div v-if="sortby=='Sort by games'" class="select">
+				  <select v-model="sortgames">
+				    <option>All games</option>
+				    <option>v for game in...</option>
+				  </select>
+				</div>
+				<div v-if="sortby=='Sort by cities'" class="select">
+				  <select v-model="sortcities">
+				    <option>All cities</option>
+				    <option>v for city in...</option>
+				  </select>
+				</div>
+			</div>
 			<div class="noitems" v-if="list.length == 0">Sorry, but there are no items to show.</div>
 			<div v-for="game in list">
 				<div class="eventslist-gamename">{{game.game}}</div>
@@ -32,6 +52,9 @@ eventsList = Vue.component('eventslist', {
 ,
 	data: function(){
 		return {
+			sortby: "Sort by games",
+			sortgames: "All games",
+			sortcities: "All cities",
 			/*list: [
 			{game: "Overwatch", events: [
 				{id: 0, game: "Overwatch", name: "Overwatch world cup", city: "London", likes: 322, date: "01.25.2018"},

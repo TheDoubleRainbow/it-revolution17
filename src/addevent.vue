@@ -91,7 +91,7 @@ addevent = Vue.component('addevent', {
 							this.form.imglink = "https://files.gamebanana.com/img/ico/sprays/530-90_4f8e1183dab55.jpg"
 							break;
 						case "Dota 2":
-							this.form.imglink = "https://www.google.com.ua/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiqs5TUtcnXAhVsCZoKHc2hBW0QjRwIBw&url=http%3A%2F%2Fseeklogo.com%2Fvector-logo%2F262299%2Fdota-2&psig=AOvVaw2RHHmfxPjp4SLslDwMJ0AL&ust=1511139016361518"
+							this.form.imglink = "https://res.cloudinary.com/teepublic/image/private/s--Ky-AFUEY--/t_Preview/b_rgb:191919,c_limit,f_jpg,h_630,q_90,w_630/v1475182893/production/designs/706906_1.jpg"
 							break;
 						case "League of Legends":
 							this.form.imglink = "https://i.pinimg.com/originals/30/0e/58/300e58c8416a68dcfcf1761501348243.jpg"
