@@ -186,5 +186,16 @@ router.get('/api/events/:event_id/comments', function(req, res, next){
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express' });
 });
+router.get('/api/countries', function(req, res, next){
+	Event.find().distinct('city')
+	  	.then(function(events) {
+	  		console.log(events);
+	    	res.send(events.sort())
+		}).catch(function(e) {
+			console.log("error");
+			console.log(e);
+	  		res.send(e);
+		});
+});
 
 module.exports = router;
