@@ -19,8 +19,8 @@ Eventpage = Vue.component('eventpage', {
 									<div class="eventbodylocation">
 										Location: {{eventData.city}}
 									</div>
-									<div class="eventbodylink">
-										Link: <a href="#">Page of event</a>
+									<div v-if="eventData.link" class="eventbodylink">
+										Link: <a :href="eventData.link">Page of event</a>
 									</div>
 									<div class="eventbodyrating">
 										Rating: {{eventData.likes}} <span @click="vote" class="addrating">+</span>
