@@ -28291,7 +28291,7 @@ topevents = Vue.component('topevents', {
 				<div class="sidebar">
 					<div class="sidebartitle">Top Events</div>
 					<div class="topeventslist">
-						<div class="topevent column is-12" v-for="event in list">
+						<div @click="openEvent(event)" class="topevent column is-12" v-for="event in list">
 							<div class="topeventname">{{event.name}}</div>
 							<div class="topeventlist-rating">
 								<div>
@@ -28316,6 +28316,9 @@ topevents = Vue.component('topevents', {
 		this.getTopEvents();
 	},
 	methods: {
+		openEvent: function(event){
+			this.$router.push(`/event/${event.id}`)
+		},
 		getTopEvents: function(){
 			var that = this;
 			that.list = [];
@@ -28428,9 +28431,13 @@ Eventpage = Vue.component('eventpage', {
 		},
 		sendComment: function(){
 			var that = this;
-			axios.post(`/api/events/${this.$route.params.id}/comments`, {user: that.name, body: that.text})
+			if(this.name != '' && this.text != 0){
+				axios.post(`/api/events/${this.$route.params.id}/comments`, {user: that.name, body: that.text})
                       .then(function (response){
-                      	//console.log("response");
+                      	that.getEventData()
+                      	that.name = "";
+                      	that.text = "";
+                      	                      	//console.log("response");
                       	//console.log(response);
                       	//that.eventData = {game: response.data.event.game, id: response.data.event._id, game: response.data.event.game, name: response.data.event.name, city: response.data.event.city, likes: response.data.event.rating, date: response.data.event.date}
                       	//that.comments = response.data.comments;
@@ -28439,6 +28446,7 @@ Eventpage = Vue.component('eventpage', {
                         //that.list = [];
                         console.log(error);
                      });
+			}
 		}
 }
 });
